@@ -9,17 +9,21 @@ export default function ProjectList({ selectedProjectId, onSelect }) {
   }, []);
 
   return (
-    <div>
+    <div className="project-list">
       {projects.map((project) => (
-        <div
+        <button
+          type="button"
           key={project.id}
           className={
             'project-item' + (project.id === selectedProjectId ? ' active' : '')
           }
           onClick={() => onSelect(project.id)}
         >
-          {project.name}
-        </div>
+          <span className="project-name">{project.name}</span>
+          {project.description && (
+            <span className="project-desc">{project.description}</span>
+          )}
+        </button>
       ))}
     </div>
   );

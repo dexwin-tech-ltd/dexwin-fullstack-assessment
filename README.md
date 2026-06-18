@@ -143,6 +143,8 @@ The app is served at `http://localhost:5173`. It calls the backend at `http://lo
 | alice    | password123   |
 | bob      | hunter2       |
 | carol    | letmein       |
+| dave     | qwerty1       |
+| erin     | sunshine      |
 
 ## Deliverable
 

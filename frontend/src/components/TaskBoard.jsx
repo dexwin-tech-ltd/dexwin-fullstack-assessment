@@ -20,10 +20,15 @@ export default function TaskBoard({ projectId }) {
 
   return (
     <div>
-      <h2>Tasks</h2>
-      {tasks.map((task, index) => (
-        <TaskItem key={index} task={task} onToggle={handleToggle} />
-      ))}
+      <div className="board-header">
+        <h2>Tasks</h2>
+        <span className="task-count">{tasks.length}</span>
+      </div>
+      <div className="task-list">
+        {tasks.map((task, index) => (
+          <TaskItem key={index} task={task} onToggle={handleToggle} />
+        ))}
+      </div>
     </div>
   );
 }
