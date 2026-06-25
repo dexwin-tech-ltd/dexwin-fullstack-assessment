@@ -40,12 +40,12 @@ public class TaskService {
     }
 
     public List<Task> search(String query) {
-        String sql = "SELECT * FROM tasks WHERE title LIKE '%" + query + "%'";
-        return entityManager.createNativeQuery(sql, Task.class).getResultList();
+        String sql = "SELECT * FROM tasks WHERE title LIKE ?";
+        return entityManager.createNativeQuery(sql, Task.class).setParameter(1, "%" + query + "%").getResultList();
     }
 
     public Task updateStatus(Long taskId, TaskStatus status) {
-        Task task = taskRepository.findById(taskId).orElseThrow();
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new RuntimeException("Task not found"));
         task.setStatus(status);
         return taskRepository.save(task);
     }
