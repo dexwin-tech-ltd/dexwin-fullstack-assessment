@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class TaskService {
@@ -23,15 +24,14 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<Map<String, Object>> getTaskSummaries(Long projectId) {
-        List<Task> tasks = taskRepository.findByProjectId(projectId);
+    public List<Map<String, Object>> getTaskSummaries(UUID projectId) {
+        List<Task> tasks = this.taskRepository.findByProjectId(projectId);
         List<Map<String, Object>> summaries = new ArrayList<>();
         for (Task task : tasks) {
             Map<String, Object> summary = new HashMap<>();
             summary.put("id", task.getId());
             summary.put("title", task.getTitle());
             summary.put("status", task.getStatus());
-            // Pull related data per task as we build the response.
             summary.put("assignee", task.getAssignee() != null ? task.getAssignee().getUsername() : null);
             summary.put("commentCount", task.getComments().size());
             summaries.add(summary);
@@ -44,9 +44,9 @@ public class TaskService {
         return entityManager.createNativeQuery(sql, Task.class).getResultList();
     }
 
-    public Task updateStatus(Long taskId, TaskStatus status) {
-        Task task = taskRepository.findById(taskId).orElseThrow();
+    public Task updateStatus(UUID taskId, TaskStatus status) {
+        Task task = this.taskRepository.findById(taskId).orElseThrow();
         task.setStatus(status);
-        return taskRepository.save(task);
+        return this.taskRepository.save(task);
     }
 }

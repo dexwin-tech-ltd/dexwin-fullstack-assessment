@@ -2,7 +2,6 @@ package com.dexwin.taskflow.controller;
 
 import com.dexwin.taskflow.entity.Project;
 import com.dexwin.taskflow.repository.ProjectRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/projects")
-@CrossOrigin(origins = "*")
 public class ProjectController {
 
     private final ProjectRepository projectRepository;
@@ -24,16 +23,16 @@ public class ProjectController {
 
     @GetMapping
     public List<Project> getAll() {
-        return projectRepository.findAll();
+        return this.projectRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Project getById(@PathVariable Long id) {
-        return projectRepository.findById(id).orElse(null);
+    public Project getById(@PathVariable UUID id) {
+        return this.projectRepository.findById(id).orElse(null);
     }
 
     @PostMapping
     public Project create(@RequestBody Project project) {
-        return projectRepository.save(project);
+        return this.projectRepository.save(project);
     }
 }

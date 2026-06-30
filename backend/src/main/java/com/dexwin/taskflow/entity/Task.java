@@ -15,14 +15,15 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tasks")
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String title;
 
@@ -31,7 +32,8 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status = TaskStatus.TODO;
 
-    private Integer priority;
+    @Enumerated(EnumType.STRING)
+    private TaskPriority priority;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -50,11 +52,11 @@ public class Task {
     public Task() {
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -82,11 +84,11 @@ public class Task {
         this.status = status;
     }
 
-    public Integer getPriority() {
+    public TaskPriority getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(TaskPriority priority) {
         this.priority = priority;
     }
 
