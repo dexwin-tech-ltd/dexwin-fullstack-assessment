@@ -13,7 +13,7 @@ frontend/dist/
 
 # OS
 .DS_Store
-
+.env
 # Interviewer materials — never commit (shared privately)
 SOLUTIONS.md
 SOLUTIONS.pdf

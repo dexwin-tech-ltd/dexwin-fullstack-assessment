@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 async function request(path, options) {
   const res = await fetch(`${BASE_URL}${path}`, options);
@@ -11,6 +11,10 @@ export function getProjects() {
 
 export function getTasks(projectId) {
   return request(`/projects/${projectId}/tasks`);
+}
+
+export function getPriorities() {
+  return request('/tasks/priorities');
 }
 
 export function updateTaskStatus(taskId, status) {
