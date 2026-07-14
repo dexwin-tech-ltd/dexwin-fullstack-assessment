@@ -8,18 +8,37 @@ Users own projects, projects contain tasks, tasks are assigned to users and can 
 
 ## The assessment
 
-This codebase **works in places and is broken in others**. It was written quickly and never reviewed. Your job is to act as the senior engineer who picks it up.
+This codebase **works in places and is broken in others**. It was written quickly and never reviewed. Your job is to act as the engineer who picks it up during a one-hour live session.
 
-We would like you to:
+Work through these stages in order and keep `FINDINGS.md` current throughout:
 
-1. **Get it running** locally (instructions below).
-2. **Find the defects.** They span the full stack — React state and effects, the REST API contract, JPA/persistence behaviour, query performance, and security. Some are obvious; several are not.
-3. **Fix them.** Make the changes you would make on a real team, and keep the code idiomatic.
-4. **Explain your work.** For each issue, briefly note in `FINDINGS.md` (create it): where it was, why it was wrong, the impact, and how you fixed it.
+1. **Review the source before running it.** Create `FINDINGS.md` and record every issue or material risk you identify from reading the code.
+2. **Run and investigate the application.** Add every runtime issue you observe to `FINDINGS.md`. Clearly distinguish observed behaviour from suspicions that still need verification.
+3. **Propose solutions before implementing.** For every finding, record its likely impact, priority, proposed solution, and how you would verify the result. You may explicitly defer lower-priority work.
+4. **Implement the highest-priority fixes.** Make focused, idiomatic changes and verify both the fixes and likely regressions.
 
-We care more about how you reason than about catching every last item. Prioritise, and call out anything you would do with more time.
+You may use AI throughout the live session, but you own every finding and change. Keep your AI interaction visible, give it bounded context, review its output carefully, prevent unrelated changes, and verify everything you accept. We assess how well you direct and review AI—not how much code it can generate.
+
+We care more about how you reason and prioritise than about catching every last item. Call out anything you would do with more time.
 
 > There is no fixed bug count given to you on purpose. Treat it like a real codebase.
+
+### Suggested `FINDINGS.md` format
+
+Use this structure for each finding, or an equivalent structure containing the same evidence:
+
+```markdown
+## Finding: concise title
+
+- Location:
+- Status: observed | suspected | confirmed | fixed | deferred
+- Evidence:
+- Impact:
+- Priority:
+- Proposed solution:
+- Verification:
+- Implementation notes:
+```
 
 ---
 
@@ -148,4 +167,4 @@ The app is served at `http://localhost:5173`. It calls the backend at `http://lo
 
 ## Deliverable
 
-A branch or archive with your fixes, plus `FINDINGS.md`. Good luck!
+A branch or archive containing your fixes and final `FINDINGS.md`. Be prepared to explain the evidence you gathered, how you prioritised the findings, how you directed and reviewed AI, how you verified the changes, and what you would do next. Good luck!
