@@ -17,7 +17,9 @@ Work through these stages in order and keep `FINDINGS.md` current throughout:
 3. **Propose solutions before implementing.** For every finding, record its likely impact, priority, proposed solution, and how you would verify the result. You may explicitly defer lower-priority work.
 4. **Implement the highest-priority fixes.** Make focused, idiomatic changes and verify both the fixes and likely regressions.
 
-You may use AI throughout the live session, but you own every finding and change. Keep your AI interaction visible, give it bounded context, review its output carefully, prevent unrelated changes, and verify everything you accept. We assess how well you direct and review AI—not how much code it can generate.
+You may use AI in the final step of this session. You own every finding and change. 
+Keep your AI interaction visible, give it bounded context, review its output carefully, prevent unrelated changes, and verify everything you accept. 
+We assess how well you direct and review AI—not how much code it can generate.
 
 We care more about how you reason and prioritise than about catching every last item. Call out anything you would do with more time.
 
