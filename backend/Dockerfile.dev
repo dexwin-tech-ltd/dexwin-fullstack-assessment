@@ -1,18 +1,13 @@
-# Dev image for the Spring Boot backend.
 # Source is bind-mounted at runtime (see docker-compose.yml), so this image only
 # needs the toolchain and a warm dependency cache for a fast `docker compose up`.
-FROM maven:3.9-eclipse-temurin-17
-
+FROM --platform=linux/arm64 maven:3.9-eclipse-temurin-17
 WORKDIR /app
-
 # Pre-download dependencies into the image's local Maven repo (~/.m2) so the first
 # run doesn't have to fetch them. Only the POM is needed for this; the actual
 # sources are mounted in when the container runs.
 COPY pom.xml .
 RUN mvn -B -q dependency:go-offline
-
 EXPOSE 8080
-
 # Compiles and runs the app. Re-run `docker compose restart backend` to pick up
 # Java changes (Spring recompiles on start).
 CMD ["mvn", "spring-boot:run"]
