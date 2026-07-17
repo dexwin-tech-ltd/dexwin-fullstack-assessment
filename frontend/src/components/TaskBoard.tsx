@@ -2,19 +2,32 @@ import { useEffect, useState } from 'react';
 import { getTasks, updateTaskStatus } from '../api/client';
 import TaskItem from './TaskItem';
 
-export default function TaskBoard({ projectId }) {
-  const [tasks, setTasks] = useState([]);
+interface Task {
+  id: number;
+  name: string;
+  status: "TODO" | "IN_PROGRESS" | "DONE";
+  priority: 1 | 2 | 3 | null;
+  assignee: { username: string } | null;
+}
+
+interface TaskBoardProps {
+  projectId: number;
+}
+
+export default function TaskBoard({ projectId }: TaskBoardProps) {
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    getTasks(projectId).then((data) => {
+    getTasks(projectId).then((data: Task[]) => {
       setTasks(data);
     });
-  }, []);
+  }, [projectId]);
 
-  const handleToggle = (task) => {
-    const next = task.status === 'DONE' ? 'TODO' : 'DONE';
-    task.status = next;
-    setTasks(tasks);
+  const handleToggle = (task: Task): void => {
+    const next: "TODO" | "DONE" = task.status === "DONE" ? "TODO" : "DONE";
+    // Update local state properly - create new array and new task object
+    setTasks(tasks.map((t) => (t.id === task.id ? { ...t, status: next } : t)));
+    // Update on backend
     updateTaskStatus(task.id, next);
   };
 
