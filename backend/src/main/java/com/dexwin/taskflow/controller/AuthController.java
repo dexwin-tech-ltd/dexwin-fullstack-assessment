@@ -2,7 +2,6 @@ package com.dexwin.taskflow.controller;
 
 import com.dexwin.taskflow.entity.User;
 import com.dexwin.taskflow.repository.UserRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
 public class AuthController {
 
     private final UserRepository userRepository;
