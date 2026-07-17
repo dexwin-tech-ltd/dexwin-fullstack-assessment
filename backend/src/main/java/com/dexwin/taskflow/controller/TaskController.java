@@ -6,7 +6,6 @@ import com.dexwin.taskflow.entity.TaskStatus;
 import com.dexwin.taskflow.repository.ProjectRepository;
 import com.dexwin.taskflow.repository.TaskRepository;
 import com.dexwin.taskflow.service.TaskService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +19,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 public class TaskController {
 
     private final TaskRepository taskRepository;
