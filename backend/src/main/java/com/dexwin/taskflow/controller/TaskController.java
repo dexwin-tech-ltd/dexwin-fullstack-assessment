@@ -39,7 +39,7 @@ public class TaskController {
     public List<Task> getTasks(@PathVariable Long projectId,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "20") int size) {
-        return taskRepository.findByProjectId(projectId);
+        return taskRepository.findByProjectId(projectId); // page, size not used
     }
 
     @GetMapping("/projects/{projectId}/task-summaries")
@@ -48,8 +48,8 @@ public class TaskController {
     }
 
     @PostMapping("/projects/{projectId}/tasks")
-    public Task createTask(@PathVariable Long projectId, @RequestBody Task task) {
-        Project project = projectRepository.findById(projectId).orElseThrow();
+    public Task createTask(@PathVariable Long projectId, @RequestBody Task task) { // no validation
+        Project project = projectRepository.findById(projectId).orElseThrow(); // talking to repo
         task.setProject(project);
         return taskRepository.save(task);
     }

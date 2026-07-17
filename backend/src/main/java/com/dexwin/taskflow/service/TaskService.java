@@ -36,17 +36,18 @@ public class TaskService {
             summary.put("commentCount", task.getComments().size());
             summaries.add(summary);
         }
-        return summaries;
+        return summaries; // refactor this code
     }
 
     public List<Task> search(String query) {
         String sql = "SELECT * FROM tasks WHERE title LIKE '%" + query + "%'";
-        return entityManager.createNativeQuery(sql, Task.class).getResultList();
+        return entityManager.createNativeQuery(sql, Task.class).getResultList(); // inserting directly.. use repository layer ->
+        //use the injected repository method
     }
 
-    public Task updateStatus(Long taskId, TaskStatus status) {
-        Task task = taskRepository.findById(taskId).orElseThrow();
+    public Task updateStatus(Long taskId, TaskStatus status) { // wrap in transaction
+        Task task = taskRepository.findById(taskId).orElseThrow(); // through explict exceptions
         task.setStatus(status);
-        return taskRepository.save(task);
+        return taskRepository.save(task); // can be merged as one and c
     }
 }
