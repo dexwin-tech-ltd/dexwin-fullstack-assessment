@@ -5,7 +5,10 @@ export default function ProjectList({ selectedProjectId, onSelect }) {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    getProjects().then(setProjects);
+    const fetchProjects = async () => {
+      await getProjects().then(setProjects);
+    };
+    fetchProjects();
   }, []);
 
   return (
