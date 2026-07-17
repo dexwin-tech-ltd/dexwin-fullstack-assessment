@@ -9,7 +9,7 @@ export default function TaskBoard({ projectId }) {
     getTasks(projectId).then((data) => {
       setTasks(data);
     });
-  }, []);
+  }, []); //empty dep array
 
   const handleToggle = (task) => {
     const next = task.status === 'DONE' ? 'TODO' : 'DONE';

@@ -7,6 +7,7 @@ export default function ProjectList({ selectedProjectId, onSelect }) {
   useEffect(() => {
     getProjects().then(setProjects);
   }, []);
+  // empty depen array
 
   return (
     <div className="project-list">
