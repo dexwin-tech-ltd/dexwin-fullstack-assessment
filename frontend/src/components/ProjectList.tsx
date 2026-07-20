@@ -1,11 +1,32 @@
 import { useEffect, useState } from 'react';
 import { getProjects } from '../api/client';
 
-export default function ProjectList({ selectedProjectId, onSelect }) {
-  const [projects, setProjects] = useState([]);
+interface Project {
+  id: string;
+  name: string;
+  description?: string;
+}
+
+interface ProjectListProps {
+  selectedProjectId: string | null;
+  onSelect: (projectId: string) => void;
+}
+
+export default function ProjectList({ selectedProjectId, onSelect }: ProjectListProps) {
+  const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
-    getProjects().then(setProjects);
+    let isMounted = true;
+
+    getProjects().then((data) => {
+      if (isMounted) {
+        setProjects(Array.isArray(data) ? data : []);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
@@ -14,15 +35,11 @@ export default function ProjectList({ selectedProjectId, onSelect }) {
         <button
           type="button"
           key={project.id}
-          className={
-            'project-item' + (project.id === selectedProjectId ? ' active' : '')
-          }
+          className={'project-item' + (project.id === selectedProjectId ? ' active' : '')}
           onClick={() => onSelect(project.id)}
         >
           <span className="project-name">{project.name}</span>
-          {project.description && (
-            <span className="project-desc">{project.description}</span>
-          )}
+          {project.description && <span className="project-desc">{project.description}</span>}
         </button>
       ))}
     </div>

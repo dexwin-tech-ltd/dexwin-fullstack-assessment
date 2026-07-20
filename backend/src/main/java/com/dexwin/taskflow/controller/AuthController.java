@@ -2,6 +2,8 @@ package com.dexwin.taskflow.controller;
 
 import com.dexwin.taskflow.entity.User;
 import com.dexwin.taskflow.repository.UserRepository;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,11 +28,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Map<String, String> credentials) {
-        String username = credentials.get("username");
-        String password = credentials.get("password");
-        User user = userRepository.findByUsername(username).orElseThrow();
-        boolean ok = user.getPassword().equals(password);
+    public Map<String, Object> login(@Valid @RequestBody LoginRequest request) {
+        User user = userRepository.findByUsername(request.username()).orElseThrow();
+        boolean ok = user.getPassword().equals(request.password());
         return Map.of("authenticated", ok, "userId", user.getId(), "username", user.getUsername());
+    }
+
+    public record LoginRequest(
+            @NotBlank(message = "Username is required") String username,
+            @NotBlank(message = "Password is required") String password
+    ) {
     }
 }

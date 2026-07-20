@@ -3,7 +3,7 @@ import ProjectList from './components/ProjectList';
 import TaskBoard from './components/TaskBoard';
 
 export default function App() {
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
 
   return (
     <div className="layout">
@@ -15,10 +15,7 @@ export default function App() {
       <div className="app">
         <aside className="sidebar">
           <h2 className="sidebar-title">Projects</h2>
-          <ProjectList
-            selectedProjectId={selectedProjectId}
-            onSelect={setSelectedProjectId}
-          />
+          <ProjectList selectedProjectId={selectedProjectId} onSelect={setSelectedProjectId} />
         </aside>
 
         <main className="board">

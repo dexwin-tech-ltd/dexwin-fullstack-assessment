@@ -1,21 +1,42 @@
 import { useEffect, useState } from 'react';
 import { getTasks, updateTaskStatus } from '../api/client';
-import TaskItem from './TaskItem';
+import TaskItem, { type TaskItemData } from './TaskItem';
 
-export default function TaskBoard({ projectId }) {
-  const [tasks, setTasks] = useState([]);
+interface TaskBoardProps {
+  projectId: string;
+}
+
+export default function TaskBoard({ projectId }: TaskBoardProps) {
+  const [tasks, setTasks] = useState<TaskItemData[]>([]);
 
   useEffect(() => {
-    getTasks(projectId).then((data) => {
-      setTasks(data);
-    });
-  }, []);
+    let isMounted = true;
 
-  const handleToggle = (task) => {
-    const next = task.status === 'DONE' ? 'TODO' : 'DONE';
-    task.status = next;
-    setTasks(tasks);
-    updateTaskStatus(task.id, next);
+    const loadTasks = async () => {
+      const data = await getTasks(projectId);
+      if (isMounted) {
+        setTasks(Array.isArray(data) ? data : []);
+      }
+    };
+
+    loadTasks();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [projectId]);
+
+  const handleToggle = async (task: TaskItemData) => {
+    const nextStatus = task.status === 'DONE' ? 'TODO' : 'DONE';
+    const previousStatus = task.status;
+
+    setTasks((currentTasks) => currentTasks.map((item) => (item.id === task.id ? { ...item, status: nextStatus } : item)));
+
+    try {
+      await updateTaskStatus(task.id, nextStatus);
+    } catch (error) {
+      setTasks((currentTasks) => currentTasks.map((item) => (item.id === task.id ? { ...item, status: previousStatus } : item)));
+    }
   };
 
   return (
@@ -25,8 +46,8 @@ export default function TaskBoard({ projectId }) {
         <span className="task-count">{tasks.length}</span>
       </div>
       <div className="task-list">
-        {tasks.map((task, index) => (
-          <TaskItem key={index} task={task} onToggle={handleToggle} />
+        {tasks.map((task) => (
+          <TaskItem key={task.id} task={task} onToggle={handleToggle} />
         ))}
       </div>
     </div>
