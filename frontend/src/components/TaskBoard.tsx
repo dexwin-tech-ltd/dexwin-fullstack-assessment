@@ -15,8 +15,6 @@ export default function TaskBoard({ projectId }: TaskBoardProps) {
     });
   }, []);
 
-  console.log({projectId, tasks, length: tasks.length});
-
   const handleToggle = (task: Task) => {
     const next = task.status === 'DONE' ? 'TODO' : 'DONE';
     setTasks(tasks.map((t) => (t.id === task.id ? { ...t, status: next } : t)));

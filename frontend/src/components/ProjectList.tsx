@@ -13,8 +13,6 @@ export default function ProjectList({ selectedProjectId, onSelect }: ProjectList
     getProjects().then(setProjects);
   }, []);
 
-  console.log(projects);
-  
 
   return (
     <div className="project-list">
