@@ -1,18 +1,25 @@
-const PRIORITY = {
+import type { Task } from '../types';
+
+const PRIORITY: Record<number, { label: string; cls: string }> = {
   1: { label: 'High', cls: 'high' },
   2: { label: 'Medium', cls: 'medium' },
   3: { label: 'Low', cls: 'low' },
 };
 
-export default function TaskItem({ task, onToggle }) {
+interface TaskItemProps {
+  task: Task;
+  onToggle: (task: Task) => void;
+}
+
+export default function TaskItem({ task, onToggle }: TaskItemProps) {
   const done = task.status === 'DONE';
   const statusLabel = (task.status || '').replace('_', ' ').toLowerCase();
-  const priority = PRIORITY[task.priority];
+  const priority = task.priority != null ? PRIORITY[task.priority] : null;
 
   return (
     <div className={'task-card' + (done ? ' done' : '')}>
       <div className="task-main">
-        <span className="task-title">{task.name}</span>
+        <span className="task-title">{task.title}</span>
         <div className="task-meta">
           <span className={'status-badge status-' + (task.status || '').toLowerCase()}>
             {statusLabel}
@@ -22,7 +29,7 @@ export default function TaskItem({ task, onToggle }) {
               {priority ? priority.label : 'P' + task.priority}
             </span>
           )}
-          {task.assignee && <span className="assignee-chip">{task.assignee.username}</span>}
+          {task.assignee?.username && <span className="assignee-chip">{task.assignee.username}</span>}
         </div>
       </div>
       <button className="toggle-btn" onClick={() => onToggle(task)}>
