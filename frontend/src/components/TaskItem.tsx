@@ -1,10 +1,17 @@
-const PRIORITY = {
+import type { Task } from '../api/client';
+
+const PRIORITY: Record<number, { label: string; cls: string }> = {
   1: { label: 'High', cls: 'high' },
   2: { label: 'Medium', cls: 'medium' },
   3: { label: 'Low', cls: 'low' },
 };
 
-export default function TaskItem({ task, onToggle }) {
+interface TaskItemProps {
+  task: Task;
+  onToggle: (task: Task) => void;
+}
+
+export default function TaskItem({ task, onToggle }: TaskItemProps) {
   const done = task.status === 'DONE';
   const statusLabel = (task.status || '').replace('_', ' ').toLowerCase();
   const priority = PRIORITY[task.priority];
@@ -12,7 +19,7 @@ export default function TaskItem({ task, onToggle }) {
   return (
     <div className={'task-card' + (done ? ' done' : '')}>
       <div className="task-main">
-        <span className="task-title">{task.name}</span>
+        <span className="task-title">{task.title}</span>
         <div className="task-meta">
           <span className={'status-badge status-' + (task.status || '').toLowerCase()}>
             {statusLabel}
