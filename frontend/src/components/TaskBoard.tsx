@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getTasks, updateTaskStatus } from '../api/client';
+import { getTasks, updateTaskStatus, type Task } from '../api/client';
 import TaskItem from './TaskItem';
 
-export default function TaskBoard({ projectId }) {
-  const [tasks, setTasks] = useState([]);
+interface TaskBoardProps {
+  projectId: number;
+}
+
+export default function TaskBoard({ projectId }: TaskBoardProps) {
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     getTasks(projectId).then((data) => {
@@ -11,10 +15,11 @@ export default function TaskBoard({ projectId }) {
     });
   }, []);
 
-  const handleToggle = (task) => {
+  console.log({projectId, tasks, length: tasks.length});
+
+  const handleToggle = (task: Task) => {
     const next = task.status === 'DONE' ? 'TODO' : 'DONE';
-    task.status = next;
-    setTasks(tasks);
+    setTasks(tasks.map((t) => (t.id === task.id ? { ...t, status: next } : t)));
     updateTaskStatus(task.id, next);
   };
 

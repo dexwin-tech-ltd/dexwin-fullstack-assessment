@@ -4,6 +4,7 @@ import TaskBoard from './components/TaskBoard';
 
 export default function App() {
   const [selectedProjectId, setSelectedProjectId] = useState(null);
+console.log("Selected prj", selectedProjectId)
 
   return (
     <div className="layout">
