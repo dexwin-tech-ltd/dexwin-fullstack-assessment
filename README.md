@@ -56,8 +56,24 @@ Use this structure for each finding, or an equivalent structure containing the s
 
 Pick whichever fits what you have installed:
 
+- **GitHub Codespaces:** a GitHub account with available Codespaces usage. No local development tools are required.
 - **Run everything in Docker (recommended):** just **Docker** (Docker Desktop or equivalent). Nothing else required.
 - **Run locally:** **Java 17+** (JDK), **Node 18+** with npm, and **PostgreSQL 16** (or use Docker for just the database).
+
+## Running it in GitHub Codespaces
+
+Use this option when the interviewer has asked you to work from your own GitHub account:
+
+1. Fork this repository to your personal GitHub account.
+2. Open your fork and confirm the repository header shows `<your-username>/dexwin-fullstack-assessment`.
+3. Select **Code**, then **Codespaces**, then **Create codespace on main**.
+4. Wait for the terminal to show **Assessment environment ready**. The Codespace automatically builds and starts the application with Docker Compose; do not install dependencies or start it separately.
+5. The **TaskFlow frontend** opens automatically when it becomes available. Follow the interviewer's direction and do not inspect the running UI until the run-and-investigate phase begins.
+6. If the browser does not open automatically, open port `5173` from the **Ports** panel when phase 2 begins.
+7. Keep forwarded ports private. The frontend routes API calls to the backend inside the Codespace, so you do not need to expose port `8080` publicly.
+8. Commit and push your final changes to your fork, then give the interviewer the fork URL and final commit SHA.
+
+The first Codespace creation builds the frontend and backend images and may take a few minutes. The assessment clock should start only after the **Assessment environment ready** message appears.
 
 ## Running it — Option 1: everything in Docker (one command)
 

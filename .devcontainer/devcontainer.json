@@ -1,0 +1,26 @@
+{
+  "name": "Dexwin full-stack assessment",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:4": {}
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb",
+    "storage": "32gb"
+  },
+  "forwardPorts": [5173, 8080],
+  "portsAttributes": {
+    "5173": {
+      "label": "TaskFlow frontend",
+      "onAutoForward": "openBrowser",
+      "protocol": "http"
+    },
+    "8080": {
+      "label": "TaskFlow API",
+      "onAutoForward": "silent",
+      "protocol": "http"
+    }
+  }
+}
