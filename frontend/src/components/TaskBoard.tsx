@@ -3,7 +3,7 @@ import { getTasks, updateTaskStatus } from '../api/client';
 import TaskItem, { Task } from './TaskItem';
 
 interface TaskBoardProps {
-  projectId: string;
+  projectId: number;
 }
 
 export default function TaskBoard({ projectId }: TaskBoardProps) {

@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { getProjects } from '../api/client';
 
 interface Project {
-  id: string;
+  id: number;
   name: string;
   description?: string;
 }
 
 interface ProjectListProps {
-  selectedProjectId: string | null;
-  onSelect: (id: string) => void;
+  selectedProjectId: number | null;
+  onSelect: (id: number) => void;
 }
 
 export default function ProjectList({ selectedProjectId, onSelect }: ProjectListProps) {
