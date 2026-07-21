@@ -1,21 +1,40 @@
 import { useEffect, useState } from 'react';
 import { getTasks, updateTaskStatus } from '../api/client';
-import TaskItem from './TaskItem';
+import TaskItem, { Task } from './TaskItem';
 
-export default function TaskBoard({ projectId }) {
-  const [tasks, setTasks] = useState([]);
+interface TaskBoardProps {
+  projectId: string;
+}
+
+export default function TaskBoard({ projectId }: TaskBoardProps) {
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    getTasks(projectId).then((data) => {
-      setTasks(data);
-    });
-  }, []);
+    let ignore = false;
+    getTasks(projectId)
+      .then((data) => {
+        if (!ignore) setTasks(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        if (!ignore) setTasks([]);
+      });
+    return () => {
+      ignore = true;
+    };
+  }, [projectId]);
 
-  const handleToggle = (task) => {
+  const handleToggle = async (task: Task) => {
     const next = task.status === 'DONE' ? 'TODO' : 'DONE';
-    task.status = next;
-    setTasks(tasks);
-    updateTaskStatus(task.id, next);
+    const prev = tasks;
+    // immutable optimistic update
+    setTasks((cur) =>
+      cur.map((t) => (t.id === task.id ? { ...t, status: next } : t))
+    );
+    try {
+      await updateTaskStatus(task.id, next);
+    } catch {
+      setTasks(prev); // rollback on failure
+    }
   };
 
   return (
@@ -25,8 +44,8 @@ export default function TaskBoard({ projectId }) {
         <span className="task-count">{tasks.length}</span>
       </div>
       <div className="task-list">
-        {tasks.map((task, index) => (
-          <TaskItem key={index} task={task} onToggle={handleToggle} />
+        {tasks.map((task) => (
+          <TaskItem key={task.id} task={task} onToggle={handleToggle} />
         ))}
       </div>
     </div>

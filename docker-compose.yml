@@ -30,7 +30,14 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./backend:/app          # live source; recompile via `docker compose restart backend`
+      - ./backend:/app
+    # No actuator on the classpath, so probe a real endpoint that returns 200.
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/api/projects || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 90s
     depends_on:
       db:
         condition: service_healthy
@@ -48,7 +55,8 @@ services:
       - ./frontend:/app         # live source; Vite hot-reloads automatically
       - /app/node_modules       # keep the container's node_modules, not the host's
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
 
 volumes:
   taskflow-data:
