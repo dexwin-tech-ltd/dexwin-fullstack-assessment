@@ -3,7 +3,7 @@ import ProjectList from './components/ProjectList';
 import TaskBoard from './components/TaskBoard';
 
 export default function App() {
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
 
   return (
     <div className="layout">

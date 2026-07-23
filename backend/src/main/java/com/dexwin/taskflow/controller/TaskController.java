@@ -1,12 +1,9 @@
 package com.dexwin.taskflow.controller;
 
-import com.dexwin.taskflow.entity.Project;
 import com.dexwin.taskflow.entity.Task;
 import com.dexwin.taskflow.entity.TaskStatus;
-import com.dexwin.taskflow.repository.ProjectRepository;
-import com.dexwin.taskflow.repository.TaskRepository;
 import com.dexwin.taskflow.service.TaskService;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,18 +17,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 public class TaskController {
 
-    private final TaskRepository taskRepository;
-    private final ProjectRepository projectRepository;
     private final TaskService taskService;
 
-    public TaskController(TaskRepository taskRepository,
-                          ProjectRepository projectRepository,
-                          TaskService taskService) {
-        this.taskRepository = taskRepository;
-        this.projectRepository = projectRepository;
+    public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
@@ -39,7 +29,7 @@ public class TaskController {
     public List<Task> getTasks(@PathVariable Long projectId,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "20") int size) {
-        return taskRepository.findByProjectId(projectId);
+        return taskService.getTasksForProject(projectId);
     }
 
     @GetMapping("/projects/{projectId}/task-summaries")
@@ -48,10 +38,8 @@ public class TaskController {
     }
 
     @PostMapping("/projects/{projectId}/tasks")
-    public Task createTask(@PathVariable Long projectId, @RequestBody Task task) {
-        Project project = projectRepository.findById(projectId).orElseThrow();
-        task.setProject(project);
-        return taskRepository.save(task);
+    public Task createTask(@PathVariable Long projectId, @Valid @RequestBody Task task) {
+        return taskService.createTask(projectId, task);
     }
 
     @PutMapping("/tasks/{id}/status")
