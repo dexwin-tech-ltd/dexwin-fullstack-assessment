@@ -39,9 +39,12 @@ public class TaskService {
         return summaries;
     }
 
+    @SuppressWarnings("unchecked")
     public List<Task> search(String query) {
-        String sql = "SELECT * FROM tasks WHERE title LIKE '%" + query + "%'";
-        return entityManager.createNativeQuery(sql, Task.class).getResultList();
+        String sql = "SELECT * FROM tasks WHERE title LIKE ?1";
+        return entityManager.createNativeQuery(sql, Task.class)
+                .setParameter(1, "%" + query + "%")
+                .getResultList();
     }
 
     public Task updateStatus(Long taskId, TaskStatus status) {

@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Map;
 
@@ -36,10 +39,11 @@ public class TaskController {
     }
 
     @GetMapping("/projects/{projectId}/tasks")
-    public List<Task> getTasks(@PathVariable Long projectId,
+    public Page<Task> getTasks(@PathVariable Long projectId,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "20") int size) {
-        return taskRepository.findByProjectId(projectId);
+        Pageable pageable = PageRequest.of(page, size);
+        return taskRepository.findByProjectId(projectId, pageable);
     }
 
     @GetMapping("/projects/{projectId}/task-summaries")
