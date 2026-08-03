@@ -1,12 +1,14 @@
 package com.dexwin.taskflow.controller;
 
-import com.dexwin.taskflow.entity.Project;
-import com.dexwin.taskflow.entity.Task;
+import com.dexwin.taskflow.dto.TaskRequest;
+import com.dexwin.taskflow.dto.TaskResponse;
 import com.dexwin.taskflow.entity.TaskStatus;
-import com.dexwin.taskflow.repository.ProjectRepository;
-import com.dexwin.taskflow.repository.TaskRepository;
+import com.dexwin.taskflow.security.UserPrincipal;
 import com.dexwin.taskflow.service.TaskService;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,52 +17,67 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 public class TaskController {
 
-    private final TaskRepository taskRepository;
-    private final ProjectRepository projectRepository;
     private final TaskService taskService;
 
-    public TaskController(TaskRepository taskRepository,
-                          ProjectRepository projectRepository,
-                          TaskService taskService) {
-        this.taskRepository = taskRepository;
-        this.projectRepository = projectRepository;
+    public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
     @GetMapping("/projects/{projectId}/tasks")
-    public List<Task> getTasks(@PathVariable Long projectId,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "20") int size) {
-        return taskRepository.findByProjectId(projectId);
+    public ResponseEntity<List<TaskResponse>> getTasks(@PathVariable Long projectId) {
+        return ResponseEntity.ok(taskService.getTasksByProject(projectId));
     }
 
     @GetMapping("/projects/{projectId}/task-summaries")
-    public List<Map<String, Object>> getTaskSummaries(@PathVariable Long projectId) {
-        return taskService.getTaskSummaries(projectId);
+    public ResponseEntity<List<Map<String, Object>>> getTaskSummaries(@PathVariable Long projectId) {
+        return ResponseEntity.ok(taskService.getTaskSummaries(projectId));
     }
 
     @PostMapping("/projects/{projectId}/tasks")
-    public Task createTask(@PathVariable Long projectId, @RequestBody Task task) {
-        Project project = projectRepository.findById(projectId).orElseThrow();
-        task.setProject(project);
-        return taskRepository.save(task);
+    public ResponseEntity<TaskResponse> createTask(
+            @PathVariable Long projectId,
+            @Valid @RequestBody TaskRequest request,
+            @AuthenticationPrincipal UserPrincipal principal) {
+        TaskResponse response = taskService.createTask(projectId, request, principal.getId());
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/tasks/{id}")
+    public ResponseEntity<TaskResponse> updateTask(
+            @PathVariable Long id,
+            @Valid @RequestBody TaskRequest request,
+            @AuthenticationPrincipal UserPrincipal principal) {
+        TaskResponse response = taskService.updateTask(id, request, principal.getId());
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/tasks/{id}/status")
-    public Task updateStatus(@PathVariable Long id, @RequestParam TaskStatus status) {
-        return taskService.updateStatus(id, status);
+    public ResponseEntity<TaskResponse> updateStatus(
+            @PathVariable Long id,
+            @RequestParam TaskStatus status,
+            @AuthenticationPrincipal UserPrincipal principal) {
+        TaskResponse response = taskService.updateStatus(id, status, principal.getId());
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/tasks/{id}")
+    public ResponseEntity<Void> deleteTask(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserPrincipal principal) {
+        taskService.deleteTask(id, principal.getId());
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/tasks/search")
-    public List<Task> search(@RequestParam String q) {
-        return taskService.search(q);
+    public ResponseEntity<List<TaskResponse>> search(@RequestParam String q) {
+        return ResponseEntity.ok(taskService.search(q));
     }
 }

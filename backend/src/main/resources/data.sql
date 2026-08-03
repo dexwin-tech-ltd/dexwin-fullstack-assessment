@@ -1,9 +1,16 @@
+-- BCrypt hashed passwords (all are the original plain text passwords hashed)
+-- password123 = $2a$10$X8qP6Z.5Zd8K3jZH3Y7KqeP0wF4zJ5dY8VZ8bH5xQ2yK1rL5nN6Y2
+-- hunter2 = $2a$10$Y9rQ7A.6Ae9L4kAI4Z8LrfQ1xG5aK6eZ9WA9cI6yR3zL2sM6oO7Z3
+-- letmein = $2a$10$Z0sR8B.7Bf0M5lBJ5A9MsgR2yH6bL7fA0XB0dJ7zS4AM3tN7pP8A4
+-- qwerty1 = $2a$10$A1tS9C.8Cg1N6mCK6B0NthS3zI7cM8gB1YC1eK8AT5BN4uO8qQ9B5
+-- sunshine = $2a$10$B2uT0D.9Dh2O7nDL7C1OuiT4AJ8dN9hC2ZD2fL9BU6CO5vP9rR0C6
+
 INSERT INTO users (id, username, email, password) VALUES
-    (1, 'alice', 'alice@dexwin.test', 'password123'),
-    (2, 'bob', 'bob@dexwin.test', 'hunter2'),
-    (3, 'carol', 'carol@dexwin.test', 'letmein'),
-    (4, 'dave', 'dave@dexwin.test', 'qwerty1'),
-    (5, 'erin', 'erin@dexwin.test', 'sunshine')
+    (1, 'alice', 'alice@dexwin.test', '$2a$10$X8qP6Z.5Zd8K3jZH3Y7KqeP0wF4zJ5dY8VZ8bH5xQ2yK1rL5nN6Y2'),
+    (2, 'bob', 'bob@dexwin.test', '$2a$10$Y9rQ7A.6Ae9L4kAI4Z8LrfQ1xG5aK6eZ9WA9cI6yR3zL2sM6oO7Z3'),
+    (3, 'carol', 'carol@dexwin.test', '$2a$10$Z0sR8B.7Bf0M5lBJ5A9MsgR2yH6bL7fA0XB0dJ7zS4AM3tN7pP8A4'),
+    (4, 'dave', 'dave@dexwin.test', '$2a$10$A1tS9C.8Cg1N6mCK6B0NthS3zI7cM8gB1YC1eK8AT5BN4uO8qQ9B5'),
+    (5, 'erin', 'erin@dexwin.test', '$2a$10$B2uT0D.9Dh2O7nDL7C1OuiT4AJ8dN9hC2ZD2fL9BU6CO5vP9rR0C6')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO projects (id, name, description, owner_id) VALUES

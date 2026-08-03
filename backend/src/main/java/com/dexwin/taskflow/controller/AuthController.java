@@ -1,36 +1,35 @@
 package com.dexwin.taskflow.controller;
 
-import com.dexwin.taskflow.entity.User;
-import com.dexwin.taskflow.repository.UserRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import com.dexwin.taskflow.dto.AuthResponse;
+import com.dexwin.taskflow.dto.LoginRequest;
+import com.dexwin.taskflow.dto.RegisterRequest;
+import com.dexwin.taskflow.service.AuthService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
 public class AuthController {
 
-    private final UserRepository userRepository;
+    private final AuthService authService;
 
-    public AuthController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return userRepository.save(user);
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
+        AuthResponse response = authService.register(request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Map<String, String> credentials) {
-        String username = credentials.get("username");
-        String password = credentials.get("password");
-        User user = userRepository.findByUsername(username).orElseThrow();
-        boolean ok = user.getPassword().equals(password);
-        return Map.of("authenticated", ok, "userId", user.getId(), "username", user.getUsername());
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+        AuthResponse response = authService.login(request);
+        return ResponseEntity.ok(response);
     }
 }

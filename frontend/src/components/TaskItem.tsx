@@ -12,7 +12,7 @@ export default function TaskItem({ task, onToggle }) {
   return (
     <div className={'task-card' + (done ? ' done' : '')}>
       <div className="task-main">
-        <span className="task-title">{task.name}</span>
+        <span className="task-title">{task.title}</span>
         <div className="task-meta">
           <span className={'status-badge status-' + (task.status || '').toLowerCase()}>
             {statusLabel}
@@ -22,7 +22,7 @@ export default function TaskItem({ task, onToggle }) {
               {priority ? priority.label : 'P' + task.priority}
             </span>
           )}
-          {task.assignee && <span className="assignee-chip">{task.assignee.username}</span>}
+          {task.assigneeUsername && <span className="assignee-chip">{task.assigneeUsername}</span>}
         </div>
       </div>
       <button className="toggle-btn" onClick={() => onToggle(task)}>
