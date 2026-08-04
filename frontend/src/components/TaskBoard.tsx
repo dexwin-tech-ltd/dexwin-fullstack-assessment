@@ -1,20 +1,27 @@
 import { useEffect, useState } from 'react';
 import { getTasks, updateTaskStatus } from '../api/client';
+import CreateTaskForm from './CreateTaskForm';
 import TaskItem from './TaskItem';
 
 export default function TaskBoard({ projectId }) {
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
+  const loadTasks = () => {
+    if (!projectId) return;
     getTasks(projectId).then((data) => {
       setTasks(data);
     });
-  }, []);
+  };
+
+  useEffect(() => {
+    loadTasks();
+  }, [projectId]);
 
   const handleToggle = (task) => {
     const next = task.status === 'DONE' ? 'TODO' : 'DONE';
-    task.status = next;
-    setTasks(tasks);
+    setTasks((current) =>
+      current.map((item) => (item.id === task.id ? { ...item, status: next } : item))
+    );
     updateTaskStatus(task.id, next);
   };
 
@@ -24,9 +31,10 @@ export default function TaskBoard({ projectId }) {
         <h2>Tasks</h2>
         <span className="task-count">{tasks.length}</span>
       </div>
+      <CreateTaskForm projectId={projectId} onCreated={() => loadTasks()} />
       <div className="task-list">
-        {tasks.map((task, index) => (
-          <TaskItem key={index} task={task} onToggle={handleToggle} />
+        {tasks.map((task) => (
+          <TaskItem key={task.id} task={task} onToggle={handleToggle} />
         ))}
       </div>
     </div>
