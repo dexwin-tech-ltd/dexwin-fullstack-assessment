@@ -24,3 +24,11 @@ export function createTask(projectId, task) {
     body: JSON.stringify(task),
   });
 }
+
+export function createProject(project) {
+  return request('/projects', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(project),
+  });
+}
