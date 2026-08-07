@@ -10,6 +10,10 @@ export function getProjects() {
 }
 
 export function getTasks(projectId) {
+  if (!projectId) {
+    return Promise.resolve([]);
+  }
+
   return request(`/projects/${projectId}/tasks`);
 }
 

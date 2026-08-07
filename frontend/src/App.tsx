@@ -4,6 +4,7 @@ import TaskBoard from './components/TaskBoard';
 
 export default function App() {
   const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
 
   return (
     <div className="layout">
@@ -23,7 +24,7 @@ export default function App() {
 
         <main className="board">
           {selectedProjectId ? (
-            <TaskBoard projectId={selectedProjectId} />
+            <TaskBoard projectId={selectedProjectId} onSelect={setSelectedTask} />
           ) : (
             <div className="empty-state">
               <p>Select a project from the left to view its tasks.</p>
