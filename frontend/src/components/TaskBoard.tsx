@@ -9,12 +9,13 @@ export default function TaskBoard({ projectId }) {
     getTasks(projectId).then((data) => {
       setTasks(data);
     });
-  }, []);
+  }, [projectId]);
 
   const handleToggle = (task) => {
     const next = task.status === 'DONE' ? 'TODO' : 'DONE';
     task.status = next;
-    setTasks(tasks);
+    //The more ideal fix is using map to create a new array and object
+    setTasks([...tasks]);
     updateTaskStatus(task.id, next);
   };
 

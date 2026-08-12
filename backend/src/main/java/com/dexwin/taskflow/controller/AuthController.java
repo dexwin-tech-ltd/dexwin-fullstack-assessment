@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.http.HttpStatus;
+import org.springframework.web.Server.ResponseStatus;
+
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://didactic-space-journey-pww6pv7wwppcqwx-5173.app.github.dev/")
 public class AuthController {
 
     private final UserRepository userRepository;
@@ -30,7 +33,9 @@ public class AuthController {
         String username = credentials.get("username");
         String password = credentials.get("password");
         User user = userRepository.findByUsername(username).orElseThrow();
-        boolean ok = user.getPassword().equals(password);
-        return Map.of("authenticated", ok, "userId", user.getId(), "username", user.getUsername());
+        if(!user.getPassword().equals(password)){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect Crendentials")
+        }
+        return Map.Of("userId", user.getgetId(),"username",user.getUsername());
     }
 }

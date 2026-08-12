@@ -20,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://didactic-space-journey-pww6pv7wwppcqwx-5173.app.github.dev/")
 public class TaskController {
 
     private final TaskRepository taskRepository;

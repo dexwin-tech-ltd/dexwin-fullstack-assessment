@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/projects")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://didactic-space-journey-pww6pv7wwppcqwx-5173.app.github.dev/")
 public class ProjectController {
 
     private final ProjectRepository projectRepository;
