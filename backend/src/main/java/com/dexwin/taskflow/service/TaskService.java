@@ -40,7 +40,7 @@ public class TaskService {
     }
 
     public List<Task> search(String query) {
-        String sql = "SELECT * FROM tasks WHERE title LIKE '%" + query + "%'";
+        String sql = "SELECT * FROM tasks WHERE title LIKE CONCAT( '%' ,:query ,'%')";
         return entityManager.createNativeQuery(sql, Task.class).getResultList();
     }
 

@@ -4,19 +4,32 @@ import TaskItem from './TaskItem';
 
 export default function TaskBoard({ projectId }) {
   const [tasks, setTasks] = useState([]);
+  const [error,setError] = useState("");
 
   useEffect(() => {
     getTasks(projectId).then((data) => {
       setTasks(data);
     });
-  }, []);
+  }, [projectId]);
 
-  const handleToggle = (task) => {
-    const next = task.status === 'DONE' ? 'TODO' : 'DONE';
-    task.status = next;
-    setTasks(tasks);
-    updateTaskStatus(task.id, next);
-  };
+  const handleToggle = async (task) => {
+  const previous = task.status;
+  const next = previous === 'DONE' ? 'TODO' : 'DONE';
+  setError(null);
+  setTasks((current) =>
+    current.map((item) => (item.id === task.id ? { ...item, status: next } : item))
+  );
+  try {
+    await updateTaskStatus(task.id, next);
+  } catch (err) {
+    setTasks((current) =>
+      current.map((item) =>
+        item.id === task.id ? { ...item, status: previous } : item
+      )
+    );
+    setError(err.message || 'Could not update task status.');
+  }
+};
 
   return (
     <div>
