@@ -37,8 +37,9 @@ public class TaskController {
 
     @GetMapping("/projects/{projectId}/tasks")
     public List<Task> getTasks(@PathVariable Long projectId,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "20") int size) {
+    //                            @RequestParam(defaultValue = "0") int page,
+    //                            @RequestParam(defaultValue = "20") int size) {
+    ){
         return taskRepository.findByProjectId(projectId);
     }
 
