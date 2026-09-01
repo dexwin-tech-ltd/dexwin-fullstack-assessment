@@ -1,11 +1,20 @@
 import { useEffect, useState } from 'react';
 import { getProjects } from '../api/client';
 
+type ProjectListProps = {
+  selectedProjectId: string;
+}
+
 export default function ProjectList({ selectedProjectId, onSelect }) {
   const [projects, setProjects] = useState([]);
+  const [error, setError] = useState<Error | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getProjects().then(setProjects);
+    setLoading(true)
+
+    getProjects().then(res => setProjects(res)).catch(err => setError(err))
+    
   }, []);
 
   return (
