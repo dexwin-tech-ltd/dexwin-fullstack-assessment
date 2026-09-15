@@ -1,0 +1,262 @@
+{
+	"info": {
+		"_postman_id": "15dbce64-7c78-4d4d-ab13-09c6b9c12f21",
+		"name": "FINDINGS-QA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15971095"
+	},
+	"item": [
+		{
+			"name": "Verify Status Code for task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Verify status code', function (){\r",
+							"    pm.response.to.have.staus(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.6"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://upgraded-invention-679p54xj75j25676-5173.app.github.dev/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Brave\";v=\"153\", \"Not_A Brand\";v=\"8\", \"Chromium\";v=\"153\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "sec-gpc",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "Cookie",
+						"value": "tunnel_phishing_protection=amusing-plane-s1hnqkl.uks1; .Tunnels.Relay.WebForwarding.Cookies=CfDJ8NJJuTEdEi5KqensronCVW2yzQNFCZ-waqKaKIJcvJ_AGwAZ-eGgAdgMo9ZCiW6MKuyHsccJLw_6ME4IxBFGRGOKKBa2t3I_qpFN--o3SwCZM5J-Ph2445haOkG3vJhOsXs0K0CElIJkLnM_euT5KAPUvDhMSxhU0IFtM5EiVIdPF58Gg8AJHD3h5sqiT7K9mH767tSQBADyehyB8YcDZBVpn7wZbmLZHO694p6PkPXEfvR4cS7RHSXrOr74D2ZuhsEVWsSIpNb-NLX7YDYeXfSFLsmbS5qbbV6OS88FWrJEyBD-TuoK4TeN933EPjEn57KC5T0IifHVvoWNzOD6gENgBb4BMAp5g0HHwD6X61CP9eGwOiaAbMpoKHiFyeK3dR6xrpeHNhwGGofQykQAOlcGBF3Gy2pwWETFGy3Q1e8D99YlXlfm1HxE9pVTK8AsZRcixRziwfhUTW9i1drEaby9TA3jC8SXPkockPt-A1LeDjuJ7xDcQRXQq7ZWbvuhNIBCON_i87DKfbaLlQIojvCYXV5L9ZfIsq1l5nbpwz3jjUmZ77-kD8G2ykpxzxlz4EtxJLkjS9sXMI89grRPyYV3uV2YPweFuKu6YRb1O6erpJMbhzK6BwnE4ni0WiucnH6U0Zf7hGgNxAu7Xbdwuc1u596ImiZk8XIQDj44rKLu9jWJLCN8ouFDLpuaWQ3I6s2PdUvg-o_TfvM5H-idsulGuG7Uk4kvbLrVHjRmsck_n0qigoD3nnwg1b1cRQcDUNPsiCqI0CytgSkm_zsqNgngGQQf2RZTvY1yl5_m6xFh0ZwAiCnGJ1FNs3fSD0gof5UQZPdU9PtDsBGR6FCWJ-slM606eQXuA9rW48ENhMFtPrVx-ggNGg3pzT5ovDyYhNhDDbaplXLoS4reJUvHFIGh4Zx6Wn7LDPWBrsYXXc9ApYbaCtqpDW7HOqlP8bcqxznWr476dK6KE8adm_8byP2YcoFjJjEPpmRFE5YWxVRU58nTot5tFlrbpCfxw0tV__tD0nkFFi0XuUZOe3gKzpd_D_jf_V_KZFYPkq4nzAoNrtp6iBOfJWVCjSvWIRDFMFMxDMhjS6y5qAr1Jes_F5UD44Su3ol4zeDM0Cg2leXY37VCFI-vidT3CJqwFlOWTaxK-_h66cIcX-S4_3z6rSrcHCBqG1Pugmw8jUdpdgk_XIwF9gygVVGPR9JtmfHrNOe7RJOfRqQ3aa6zrtrl2p462mLzQMQW9WW_ScbzVzSOA65xKAlgmBN-UkQfmcNtedB-ygYcQub_h2ysbgr7iT5-GdpfT3DUhwb3l8DJc0Qgjj5h3x1nHtoKL1v00IjBxf3Tse9d0llFY0ZkXE5102wW9otOgWbqMRaZMNddVotlzqKWizCJ_8zzPMU_wERhu0Xyzc2vUJkeuL9hCbUuZjzx4CD2s13633eNmsTG3dzx9jkqnc2n_NMrvdT01S3g_jTyTWEp5tgMbcgzM9Mc0_sobHMo-ChNIqCmx6vw20d4fBvxgnNj6hvKWsWT1NOjpmyiW8TUTE8a2oah9KuhkJ-HcT8RuNRlCXPVBkvSFqEHizPy8Bn09TxTX_CnRlWGumz6hRO4kC51u6oK-hG2WVI"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://upgraded-invention-679p54xj75j25676-5173.app.github.dev/api/projects/1/tasks",
+					"protocol": "https",
+					"host": [
+						"upgraded-invention-679p54xj75j25676-5173",
+						"app",
+						"github",
+						"dev"
+					],
+					"path": [
+						"api",
+						"projects",
+						"1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Verify status code', function (){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Authentication', function (){\r",
+							"    pm.expect(pm.response.json().authenticated).to.equal(true)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"bob\",\r\n    \"email\": \"bob@dexwin.test\",\r\n    \"password\": \"hunter2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://upgraded-invention-679p54xj75j25676-5173.app.github.dev/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"upgraded-invention-679p54xj75j25676-5173",
+						"app",
+						"github",
+						"dev"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Verify status code', function (){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.collectionVariables.set('ProjectID',pm.response.json().id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Smoke\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://upgraded-invention-679p54xj75j25676-5173.app.github.dev/api/projects",
+					"protocol": "https",
+					"host": [
+						"upgraded-invention-679p54xj75j25676-5173",
+						"app",
+						"github",
+						"dev"
+					],
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Verify status code', function (){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Check name', function (){\r",
+							"    pm.expect(pm.response.json().title).to.equal(\"Smoke\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"Smoke Test\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://upgraded-invention-679p54xj75j25676-5173.app.github.dev/api/projects/{{ProjectID}}}/tasks",
+					"protocol": "https",
+					"host": [
+						"upgraded-invention-679p54xj75j25676-5173",
+						"app",
+						"github",
+						"dev"
+					],
+					"path": [
+						"api",
+						"projects",
+						"{{ProjectID}}}",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "ProjectID",
+			"value": ""
+		}
+	]
+}
