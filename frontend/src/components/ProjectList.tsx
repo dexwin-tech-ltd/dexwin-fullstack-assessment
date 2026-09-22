@@ -4,6 +4,7 @@ import { getProjects } from '../api/client';
 export default function ProjectList({ selectedProjectId, onSelect }) {
   const [projects, setProjects] = useState([]);
 
+
   useEffect(() => {
     getProjects().then(setProjects);
   }, []);

@@ -4,7 +4,7 @@ const PRIORITY = {
   3: { label: 'Low', cls: 'low' },
 };
 
-export default function TaskItem({ task, onToggle }) {
+export default function TaskItem({ task, onToggle, isUpdating }) {
   const done = task.status === 'DONE';
   const statusLabel = (task.status || '').replace('_', ' ').toLowerCase();
   const priority = PRIORITY[task.priority];
@@ -25,8 +25,8 @@ export default function TaskItem({ task, onToggle }) {
           {task.assignee && <span className="assignee-chip">{task.assignee.username}</span>}
         </div>
       </div>
-      <button className="toggle-btn" onClick={() => onToggle(task)}>
-        {done ? 'Reopen' : 'Complete'}
+      <button className="toggle-btn" onClick={() => onToggle(task)} disabled={isUpdating}>
+        {isUpdating ? 'Updating...' : done ? 'Reopen' : 'Complete'}
       </button>
     </div>
   );

@@ -3,8 +3,6 @@ package com.dexwin.taskflow.service;
 import com.dexwin.taskflow.entity.Task;
 import com.dexwin.taskflow.entity.TaskStatus;
 import com.dexwin.taskflow.repository.TaskRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,9 +13,6 @@ import java.util.Map;
 public class TaskService {
 
     private final TaskRepository taskRepository;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
@@ -40,8 +35,7 @@ public class TaskService {
     }
 
     public List<Task> search(String query) {
-        String sql = "SELECT * FROM tasks WHERE title LIKE '%" + query + "%'";
-        return entityManager.createNativeQuery(sql, Task.class).getResultList();
+        return taskRepository.findByTitleContainingIgnoreCase(query);
     }
 
     public Task updateStatus(Long taskId, TaskStatus status) {
