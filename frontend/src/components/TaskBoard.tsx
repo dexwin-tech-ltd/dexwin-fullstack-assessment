@@ -11,11 +11,20 @@ export default function TaskBoard({ projectId }) {
     });
   }, []);
 
+  function handleUpdateTaskStatus(taskId, status){
+    updateTaskStatus(taskId, status);
+  }
+
   const handleToggle = (task) => {
     const next = task.status === 'DONE' ? 'TODO' : 'DONE';
-    task.status = next;
-    setTasks(tasks);
-    updateTaskStatus(task.id, next);
+    setTasks((currentTasks) =>
+      currentTasks.map((currentTask) =>
+        currentTask.id === task.id
+          ? { ...currentTask, status: next }
+          : currentTask
+      )
+    );
+    handleUpdateTaskStatus(task.id, next);
   };
 
   return (

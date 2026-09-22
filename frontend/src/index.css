@@ -261,3 +261,47 @@ body {
   border-radius: 12px;
   background: #fff;
 }
+
+@media (max-width: 700px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+  }
+
+  .app {
+    flex-direction: column;
+    gap: 20px;
+    padding: 16px;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .sidebar-title {
+    margin-bottom: 8px;
+  }
+
+  .project-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .project-item {
+    min-width: 220px;
+  }
+
+  .task-card {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .toggle-btn {
+    width: 100%;
+  }
+}

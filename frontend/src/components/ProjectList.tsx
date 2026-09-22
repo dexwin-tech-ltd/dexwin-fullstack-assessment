@@ -6,7 +6,11 @@ export default function ProjectList({ selectedProjectId, onSelect }) {
 
   useEffect(() => {
     getProjects().then(setProjects);
-  }, []);
+  }, [projects]);
+
+  function handleSelect(project){
+    onSelect(project.id)
+  }
 
   return (
     <div className="project-list">
@@ -17,7 +21,7 @@ export default function ProjectList({ selectedProjectId, onSelect }) {
           className={
             'project-item' + (project.id === selectedProjectId ? ' active' : '')
           }
-          onClick={() => onSelect(project.id)}
+          onClick={() => handleSelect(project)}
         >
           <span className="project-name">{project.name}</span>
           {project.description && (

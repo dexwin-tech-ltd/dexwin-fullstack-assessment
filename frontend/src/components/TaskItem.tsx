@@ -19,7 +19,7 @@ export default function TaskItem({ task, onToggle }) {
           </span>
           {task.priority != null && (
             <span className={'priority-pill' + (priority ? ' priority-' + priority.cls : '')}>
-              {priority ? priority.label : 'P' + task.priority}
+              {priority ? priority.label : `'P' + ${task.priority}`}
             </span>
           )}
           {task.assignee && <span className="assignee-chip">{task.assignee.username}</span>}
