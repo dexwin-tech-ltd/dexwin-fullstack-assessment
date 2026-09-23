@@ -5,7 +5,7 @@ export default function ProjectList({ selectedProjectId, onSelect }) {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    getProjects().then(setProjects);
+    getProjects().then((data) => setProjects(data));
   }, []);
 
   return (
@@ -15,12 +15,12 @@ export default function ProjectList({ selectedProjectId, onSelect }) {
           type="button"
           key={project.id}
           className={
-            'project-item' + (project.id === selectedProjectId ? ' active' : '')
+            'project-item' + (project?.id === selectedProjectId ? ' active' : '')
           }
           onClick={() => onSelect(project.id)}
         >
-          <span className="project-name">{project.name}</span>
-          {project.description && (
+          <span className="project-name">{project?.name}</span>
+          {project?.description && (
             <span className="project-desc">{project.description}</span>
           )}
         </button>
