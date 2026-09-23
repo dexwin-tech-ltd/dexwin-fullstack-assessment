@@ -37,3 +37,8 @@ FINDING 5
 For each new project , the user should see the list of that project's tasks after a request has been made to the backend to fetch thasks for that project yet only the first selected project's tasks are fetched. Any newly selected task does not trigger a fetch. Bug is from frontend/src/components/TaskBoard.tsx where the useEffect doesnt have a dependency whereas it should be dependent on projectId
 - Priority: 1
 - Location: frontend/src/components/TaskBoard.tsx
+
+FINDING 6
+Upon clicking n complete for a task, a request is made to complete the task. However, the state of the task isnt refetched/ the projects tasks arent refresh hence the frontend ahows stale data/ui.
+-Priority: 1
+-Location: frontend/src/components/TaskBoard.tsx
