@@ -32,3 +32,8 @@ Attribute accessing on the project entity or state is done unconditionally ignor
 - Location: frontend/src/components/ProjectList.tsx
 -Priority: 2
 - Propose Solution:
+
+FINDING 5
+For each new project , the user should see the list of that project's tasks after a request has been made to the backend to fetch thasks for that project yet only the first selected project's tasks are fetched. Any newly selected task does not trigger a fetch. Bug is from frontend/src/components/TaskBoard.tsx where the useEffect doesnt have a dependency whereas it should be dependent on projectId
+- Priority: 1
+- Location: frontend/src/components/TaskBoard.tsx
