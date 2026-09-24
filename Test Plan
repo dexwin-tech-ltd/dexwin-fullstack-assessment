@@ -1,0 +1,6 @@
+Risk Based Test Plan for TaskFlow
+
+Assess defects base on the impact it has on the system and the business at large.
+defining risk based on the severity of the defect and assigning the appropriate status to it.
+Severity status -  Critical, High, medium and low.
+

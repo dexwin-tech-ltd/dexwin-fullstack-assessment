@@ -1,0 +1,6 @@
+1. clicking on a project should a list tasks under it
+2. Clicking on complete should be able reopen.
+
+
+
+Tests

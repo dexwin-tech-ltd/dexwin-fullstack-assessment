@@ -1,0 +1,81 @@
+1. Tasks for project only shows for the first project clicked.
+
+Steps to reproduce
+1. navigate to TaskFlow homepage
+2. Select any of the projects(Should see a list of tasks)
+3. Then select another project.
+
+Expected Results  =  A list of task for the second selected projects.
+Actual Results =  No change to the data already being displayed from the first project.
+evidence =  first and second selection .png files
+
+Severity = medium
+priority = high
+
+
+2. Completing a task does not show any confirmation for the action done.
+Steps to reproduce
+1. Click on a project
+2. Complete a task by clicking the complete button
+
+Expected Results = The user should be notified of the action taken.
+Actual Results = No notification is shown to the user.
+Evidence= Task completion.png
+
+Severity = low
+Priority = medium
+
+
+3. API response returns user sensitive information
+Step to reproduce;
+1. navigate to the TaskFlow homepage,
+2. Right click on anywhere on the page to inspect the request using the network tab.
+3. select the request and view the response tab.
+
+Expected Results = User passwords and sensitive information is protected and not exposed
+Actual Results =  User sensitive data is exposed by the API.
+
+evidence = password exposure.png
+
+Severity = critical
+Priority = High
+
+
+
+4. API response returns more than needed by the client
+steps to reproduce;
+1. navigate to any of the pages
+2. Right click on anywhere on the page to inspect the request using the network tab.
+3. select the request and view the response tab.
+
+Expected Results = API returns data that is relevant to client
+Actual Results = API response contains not needed information including user sensitive information
+Evidence =  more than needed data.png
+
+Severity = medium
+Priority = High
+
+
+5. "Reopen" task button is not shown immediately after completing a task unless user refreshes page
+Steps to reproduce
+1. Complete a task by clicking on the Complete button
+
+Expected Results =  Reopen button should show immediately after ompleting a task.
+Actual Results  =  Complete button stays on the page, user needs to refresh
+
+severity = low
+priority = medium
+
+6. Reopen button looks like a disabled button
+
+Steps to reproduce
+1. navigate to TaskFlow homepage
+2. Select any of the projects(Should see a list of tasks)
+3. complete any of the tasks
+4. refresh the page
+
+Expected Results =  Reopen button should look enabled
+Actual results =  Button looked disabled
+
+severity = low
+impact = low
