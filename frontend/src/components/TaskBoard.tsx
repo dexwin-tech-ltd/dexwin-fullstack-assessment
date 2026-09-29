@@ -9,13 +9,21 @@ export default function TaskBoard({ projectId }) {
     getTasks(projectId).then((data) => {
       setTasks(data);
     });
-  }, []);
+  }, [projectId]);
 
-  const handleToggle = (task) => {
+  const handleToggle =  async (task) => {
     const next = task.status === 'DONE' ? 'TODO' : 'DONE';
     task.status = next;
-    setTasks(tasks);
-    updateTaskStatus(task.id, next);
+    
+    let updateRes = await updateTaskStatus(task.id, next);
+
+    let newTasks = tasks.map( t => {
+      if(t.id == task.id){
+        t = updateRes
+      }
+      return t
+    })
+    setTasks(newTasks)
   };
 
   return (
