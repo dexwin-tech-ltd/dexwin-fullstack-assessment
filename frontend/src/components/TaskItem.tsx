@@ -12,8 +12,11 @@ export default function TaskItem({ task, onToggle }) {
   return (
     <div className={'task-card' + (done ? ' done' : '')}>
       <div className="task-main">
-        <span className="task-title">{task.name}</span>
+        <span className="task-title">{task.title}</span>
         <div className="task-meta">
+          <span className="task-description">
+            {task.description}
+          </span>
           <span className={'status-badge status-' + (task.status || '').toLowerCase()}>
             {statusLabel}
           </span>
