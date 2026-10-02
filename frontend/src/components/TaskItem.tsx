@@ -4,7 +4,31 @@ const PRIORITY = {
   3: { label: 'Low', cls: 'low' },
 };
 
-export default function TaskItem({ task, onToggle }) {
+export type Task = {
+  id: number,
+  title: string,
+  description: string,
+  status: "DONE" | "TODO",
+  priority: number,
+  project: {
+    id: number,
+    name: string
+    description: string,
+    owner: {
+      id: number,
+      username: string,
+      email: string,
+    };
+  };
+  assignee: {
+    id: number,
+    username: string,
+    email: string,
+  },
+  createdAt: string
+}
+
+export default function TaskItem({ task, onToggle }: {task: Task, onToggle: any}) {
   const done = task.status === 'DONE';
   const statusLabel = (task.status || '').replace('_', ' ').toLowerCase();
   const priority = PRIORITY[task.priority];
@@ -12,7 +36,7 @@ export default function TaskItem({ task, onToggle }) {
   return (
     <div className={'task-card' + (done ? ' done' : '')}>
       <div className="task-main">
-        <span className="task-title">{task.name}</span>
+        <span className="task-title">{task.title}</span>
         <div className="task-meta">
           <span className={'status-badge status-' + (task.status || '').toLowerCase()}>
             {statusLabel}

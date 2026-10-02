@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getProjects } from '../api/client';
 
-export default function ProjectList({ selectedProjectId, onSelect }) {
+export default function ProjectList({ selectedProjectId, onSelect }: { selectedProjectId: string; onSelect: (pId: string) => void }) {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
