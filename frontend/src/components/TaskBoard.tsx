@@ -4,7 +4,7 @@ import TaskItem from './TaskItem';
 
 export default function TaskBoard({ projectId }) {
   const [tasks, setTasks] = useState([]);
-  const [ error, setError] = useS
+  const [ error, setError] = useState(null);
 
   useEffect(() => {
     getTasks(projectId).then((data) => {
