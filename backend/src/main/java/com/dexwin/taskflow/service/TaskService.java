@@ -40,9 +40,16 @@ public class TaskService {
     }
 
     public List<Task> search(String query) {
-        String sql = "SELECT * FROM tasks WHERE title LIKE '%" + query + "%'";
-        return entityManager.createNativeQuery(sql, Task.class).getResultList();
+        String sql = "SELECT * FROM tasks WHERE title LIKE :query";
+        query queryObj = (com.dexwin.taskflow.service.query) entityManager.createNativeQuery(sql, Task.class);
+        queryObj.setParameter("query", "%" + query + "%");
+        return null;
+
+     
+
     }
+
+       
 
     public Task updateStatus(Long taskId, TaskStatus status) {
         Task task = taskRepository.findById(taskId).orElseThrow();
