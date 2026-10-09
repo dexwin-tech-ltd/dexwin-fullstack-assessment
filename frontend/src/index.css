@@ -261,3 +261,7 @@ body {
   border-radius: 12px;
   background: #fff;
 }
+
+.error{
+color:red;
+}

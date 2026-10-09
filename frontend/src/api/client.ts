@@ -2,6 +2,9 @@ const BASE_URL = '/api';
 
 async function request(path, options?) {
   const res = await fetch(`${BASE_URL}${path}`, options);
+  if (!res.ok) { 
+    throw Error('Something went wrong while fetching data from the server.');
+  }
   return res.json();
 }
 
